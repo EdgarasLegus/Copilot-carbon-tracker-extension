@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Carbon Stats</title>
+    <style>
+        {{styles}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 AI Carbon Footprint Tracker</h1>
+        <p class="subtitle">Tracking started {{daysSinceStart}} days ago</p>
+        
+        <div class="model-info">
+            <strong>Current Model:</strong> {{modelDescription}}
+            <div style="margin-top: 5px; font-size: 12px; color: var(--vscode-descriptionForeground);">
+                Click "Change Model" to select a different AI model
+            </div>
+        </div>
+        
+        <div class="hero-stat">
+            <div class="hero-number">{{totalCO2Grams}}g</div>
+            <div class="hero-label">Total CO2 Emissions</div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{totalTokens}}</div>
+                <div class="stat-label">Tokens Generated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{suggestionsAccepted}}</div>
+                <div class="stat-label">Suggestions Accepted</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{dailyAverage}}g</div>
+                <div class="stat-label">Daily Average CO2</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{perSuggestion}}g</div>
+                <div class="stat-label">CO2 per Suggestion</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">📊 Real-World Comparisons</div>
+            <div class="comparison-item">
+                <div class="comparison-icon">📱</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{smartphones}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">Based on 8g CO2 per charge</div>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <div class="comparison-icon">🚗</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{carMiles}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">Based on 404g CO2 per mile</div>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <div class="comparison-icon">💡</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{ledBulbHours}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">10W LED bulb running</div>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <div class="comparison-icon">📺</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{streaming}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">HD video streaming</div>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <div class="comparison-icon">🔍</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{googleSearches}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">Google searches</div>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <div class="comparison-icon">🌳</div>
+                <div class="comparison-text">
+                    <div class="comparison-value">{{treesDaily}}</div>
+                    <div style="font-size: 12px; color: var(--vscode-descriptionForeground);">To offset daily (57.5g CO2/tree/day)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">📈 Yearly Projection</div>
+            <div class="info-badge">Based on current daily average</div>
+            <div class="metric-row">
+                <span class="metric-label">Projected yearly CO2</span>
+                <span class="metric-value">{{yearlyKg}} kg</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Equivalent to</span>
+                <span class="metric-value">{{yearlyComparison}}</span>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">🔧 Additional Metrics</div>
+            <div class="metric-row">
+                <span class="metric-label">Characters generated</span>
+                <span class="metric-value">{{totalCharacters}}</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Active sessions</span>
+                <span class="metric-value">{{sessionsCount}}</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Average per session</span>
+                <span class="metric-value">{{sessionAverage}}g CO2</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Current model</span>
+                <span class="metric-value">{{modelDescription}}</span>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-primary" onclick="changeModel()">Change Model</button>
+            <button class="btn-secondary" onclick="exportData()">Export Data</button>
+            <button class="btn-danger" onclick="resetStats()">Reset Stats</button>
+        </div>
+    </div>
+    
+    <script>
+        const vscode = acquireVsCodeApi();
+        
+        function resetStats() {
+            vscode.postMessage({ command: 'reset' });
+        }
+        
+        function exportData() {
+            vscode.postMessage({ command: 'export' });
+        }
+        
+        function changeModel() {
+            vscode.postMessage({ command: 'changeModel' });
+        }
+    </script>
+</body>
+</html>
